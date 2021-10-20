@@ -110,11 +110,9 @@ def get_lista_noua(l):
     b=0
     cmmdc=0
     for x in l:
-        if x>0:
-            if a==0:
+        if x>0 and a==0:
                 a=x
-        elif x>0:
-            if b==0:
+        elif x>0 and b==0:
                 b=x
                 cmmdc=get_cmmdc_v2(a,b)
         elif x>0:
@@ -131,7 +129,7 @@ def get_lista_noua(l):
 
 def test_get_lista_noua():
     assert get_lista_noua([-76,12,24,-13,144])==[-67, 12, 12, -31, 12]
-#test_get_lista_noua()
+test_get_lista_noua()
 
 def read_list():
     # citim numerele asa: 3,56,7,1,3,43,5,54
