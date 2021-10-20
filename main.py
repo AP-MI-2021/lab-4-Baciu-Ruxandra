@@ -13,7 +13,7 @@ def test_is_negativ():
     assert is_negativ([1,-1,2,-2,-3])==[-1, -2, -3]
     assert is_negativ([1,1,2,2,3])==[]
     assert is_negativ([-1,-2,-3])==[-1,-2,-3]
-#test_is_negativ()
+test_is_negativ()
 
 def min_numar_cu_cifra_data(l,val):
     '''
@@ -82,6 +82,57 @@ def test_get_superprim():
 test_get_superprim()
 
 
+def get_cmmdc_v2(x, y):
+  # codul vostru aici
+  r=x%y
+  while r!=0:
+      x=y
+      y=r
+      r=x%y
+  return y
+
+def get_invers(nr):
+    n=0
+    nr=abs(nr)
+    while nr:
+        n=n*10+nr%10
+        nr=nr//10
+    return -n
+
+def get_lista_noua(l):
+    '''
+    se returneaza o lista noua in care numerele pozitive și nenule au fost înlocuite cu CMMDC-ul lor și numerele negative au cifrele în ordine inversă
+    :param l: lista de numere intregi
+    :return: lista noua care indeplineste cerinta de mai sus
+    '''
+    new_l=[]
+    a=0
+    b=0
+    cmmdc=0
+    for x in l:
+        if x>0:
+            if a==0:
+                a=x
+        elif x>0:
+            if b==0:
+                b=x
+                cmmdc=get_cmmdc_v2(a,b)
+        elif x>0:
+            cmmdc = get_cmmdc_v2(cmmdc, x)
+
+
+    for x in l:
+        if x<0:
+          new_l.append(get_invers(x))
+        else:
+            new_l.append(cmmdc)
+
+    return new_l
+
+def test_get_lista_noua():
+    assert get_lista_noua([-76,12,24,-13,144])==[-67, 12, 12, -31, 12]
+#test_get_lista_noua()
+
 def read_list():
     # citim numerele asa: 3,56,7,1,3,43,5,54
     given = input('Dati numerele separate prin virgula: ')
@@ -97,7 +148,7 @@ def print_meniu():
     print("2. Afișarea tuturor numerelor negative nenule din listă")
     print("3. Afișarea celui mai mic număr care are ultima cifră egală cu o cifră citită de la tastatură.")
     print("4. Afișarea tuturor numerelor din listă care sunt superprime.")
-    print("5. ")
+    print("5. Afișarea listei obținute din lista inițială în care numerele pozitive și nenule au fost înlocuite cu CMMDC-ul lor și numerele negative au cifrele în ordine inversă.")
     print("x. Iesire")
 
 def main():
@@ -120,7 +171,8 @@ def main():
             print("Noua lista este:")
             print(get_superprim(l))
         elif option == '5':
-            pass
+            print("Noua lista este:")
+            print(get_lista_noua(l))
         elif option == "a":
             print(l)
         elif option == 'x':
